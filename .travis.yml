@@ -1,0 +1,64 @@
+env:
+  global:
+    - CC_TEST_REPORTER_ID=ff7add7a0f454aff7e13c739a06a7aba8e5c8229d3e776e051294341b4721871
+addons:
+  artifacts: true
+language: python
+dist: bionic
+python:
+  - "3.5"
+  - "3.6"
+  - "3.7"
+#  - "nightly"
+cache: pip
+before_install:
+  - sudo apt-get update
+  - apt-cache search libssl
+  - sudo apt-get -y install openssl nodejs python-setuptools libwebp-dev
+  - sudo apt install -y -f --fix-missing
+  - python -V
+  - pwd
+  - chmod +x helpers/after_script.sh
+  - chmod +x helpers/before_deploy.sh
+  - chmod +x helpers/before_script.sh
+install:
+  - npm install -g sass node-sass html-minifier
+  - pip install --upgrade coverage codeclimate-test-reporter setuptools pyinstaller
+  - pip install -r requirements_dev.txt
+before_script:
+  - source ./helpers/before_script.sh
+  - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+  - chmod +x ./cc-test-reporter
+  - ./cc-test-reporter before-build
+script:
+  - if [[ "$TRAVIS_TAG" = "" ]]; then coverage run --omit=manga_py/providers/*.py --source=manga_py run_tests.py; else echo "skip script"; fi
+after_script:
+  - ./helpers/after_script.sh
+before_deploy:
+  - echo "Start make gh-pages content"
+  - ./helpers/before_deploy.sh
+deploy:
+  - provider: pages
+    edge: true
+    local-dir: helpers/gh_pages_content
+    target-branch: gh-pages
+    github-token: $GH_TOKEN
+    skip-cleanup: true
+    skip_cleanup: true
+    on:
+      branch: stable_1.x
+      condition: $TRAVIS_PYTHON_VERSION == "3.6"
+      tags: false
+  - provider: pypi
+    server: https://upload.pypi.org/legacy/
+    user: 1271
+    password: $PYPI_PASS
+    skip_cleanup: true
+    on:
+      branch: stable_1.x
+      tags: true
+      condition: $TRAVIS_PYTHON_VERSION == "3.6"
+#    fqdn: yuru-yuri.sttv.me
+#see https://docs.travis-ci.com/user/deployment/pages/
+allow_failures:
+  - python: 3.5
