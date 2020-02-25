@@ -35,4 +35,4 @@ script:
 stages:
   - name: test
   - name: release
-    if: (NOT type = pull_request) AND branch = master and tag IS present
+    if: branch = master and tag IS present
