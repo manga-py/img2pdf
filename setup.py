@@ -23,7 +23,7 @@ if ~__version__.find('alpha'):
 
 setup(
     name='manga_py.img2pdf',
-    packages=find_packages(exclude=('tests', '.mypy_cache')),
+    packages=find_packages(exclude=('tests', '.mypy_cache', 'build')),
     include_package_data=True,
     version=__version__,
     description='Universal assistant download manga.',
@@ -40,9 +40,9 @@ setup(
         'License :: OSI Approved :: MIT License',
         'Natural Language :: English',
         'Environment :: Console',
-        'Programming Language :: Python :: 3.5',
         'Programming Language :: Python :: 3.6',
         'Programming Language :: Python :: 3.7',
+        'Programming Language :: Python :: 3.8',
         'Topic :: Internet :: WWW/HTTP',
     ],
     python_requires='>=3.6',

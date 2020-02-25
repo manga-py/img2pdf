@@ -26,10 +26,4 @@ manga-py.img2pdf -h # help
 
 manga-py.img2pdf Manga/AwesomeManga
 
-# or as module (identical)
-
-python -m manga-py.img2pdf -h  # help
-
-python -m manga-py.img2pdf Manga/AwesomeManga
-
 ```
