@@ -23,6 +23,10 @@ jobs:
         user: __token__
         password: $PYPI_KEY
         skip_existing: true
+    - stage: master
+      script: echo "master"
+    - stage: tag
+      script: echo "tag"
 cache: pip
 before_install:
   - echo $TRAVIS_PYTHON_VERSION
@@ -36,3 +40,7 @@ stages:
   - name: test
   - name: release
     if: branch = master and tag IS present
+  - name: master
+    if: branch = master
+  - name: tag
+    if: tag IS present
