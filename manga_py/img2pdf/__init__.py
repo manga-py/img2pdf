@@ -76,22 +76,30 @@ def temp_dir():
     return temp
 
 
-def make_pdf(cur_temp: Path, pdf_name):
+def make_pdf(cur_temp: Path, pdf_path: Path):
     images = []
     for img in cur_temp.iterdir():
         if img.is_file() and img.name[img.name.rfind('.'):] in _allowed_file_extensions:
             image = open_img(img)
+            if 'RGB' != image.mode:
+                image = image.convert(mode='RGB', colors=1 << 14)  # 16k
             images.append(image)
 
     if len(images) > 0:
-        _pdf = str(pdf_name)
         try:
             pdf_image = images[0].copy()
-            pdf_image.save(_pdf, format="PDF", resolution=100.0, save_all=True, append_images=images[1:])
+            kwargs = {
+                'format': 'PDF',
+                'resolution': 100.0,
+                'save_all': True,
+            }
+            if len(images) > 1:
+                kwargs.setdefault('append_images', images[1:])
+            pdf_image.save(str(pdf_path), **kwargs)
             pdf_image.close()
         except Exception as e:
-            warning("%s" % e)
-            pdf_name.unlink()
+            warning('%s' % e)
+            pdf_path.unlink()
         [i.close() for i in images]
 
 

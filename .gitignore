@@ -1,12 +1,7 @@
-.idea/
-Manga/
-tests/temp/
-
-manga_py/rebreakcaptcha
-
-manga_py/storage/.passwords.json
-manga_py/storage/chromedriver
-manga_py/storage/chromedriver.exe
+/.idea/
+/Manga/
+/tests/temp/
+/.mypy_cache
 
 ### Python template
 # Byte-compiled / optimized / DLL files

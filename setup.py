@@ -23,7 +23,7 @@ if ~__version__.find('alpha'):
 
 setup(
     name='manga_py.img2pdf',
-    packages=find_packages(exclude=('tests', )),
+    packages=find_packages(exclude=('tests', '.mypy_cache')),
     include_package_data=True,
     version=__version__,
     description='Universal assistant download manga.',
