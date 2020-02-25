@@ -23,6 +23,8 @@ jobs:
         user: __token__
         password: $PYPI_KEY
         skip_existing: true
+        on:
+          tags: true
 cache: pip
 before_install:
   - echo $TRAVIS_PYTHON_VERSION
