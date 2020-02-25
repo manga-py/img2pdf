@@ -1,7 +1,5 @@
 language: python
 dist: xenial
-#addons:
-#  artifacts: true
 addons:
   apt:
     packages:
@@ -21,13 +19,14 @@ jobs:
       deploy:
         provider: pypi
         user: __token__
-        password: $PYPI_KEY
+        password:
+          secure: "vjmNwGOTjXxt1kyd1mglqIJIG/X7kigsPiMElmwNy0GXYkIS9fbI0XFh0sIFIx53qK6tKNbAesb6Ax80WZ1hmZsiJlqaLCUOwoDjxGXLbZNK+UIz32P1cMaxpiY4X4pKEP6Xqtn5n6jGhCQOua8e79VbCUcw5Ivs52pJPel8QBxY6KjKkS81OWRogdu9LztDIyACmlIjlBxR4GJw9aiCpt5cGalUZao9jHR2xvVlXbMQ5bsMBJGfURdTfZO9BJisyXS+w8qwbX2sqShQjezoJTY13RseLcqQPJ6hy/bvV54culh88tmY9f6ZEGISjbFSc/uEwVt4ME48Ll/BkDNqkmcSqHYJVpUqYFJhvj5yAhFwh+JtbU2RvKlc6qeUiO6OC8REBrafRG6JBo369e4DbTInWjmYey31YN1R/1rgsYCM8CoHYCbzQAQGc65o8Q/Ki66spTlVHz1XXgMd72xhfH8QVNIUrLrTyPtcsDVkuoXVe3R4dkphU/5LpbEm4fD9VnPx7CaQ5vrmeWtwKZ7Mt8xTtcqQeZVf+hGxnyCrTY7FiAyev4UZdUvRvs1JvJtVhVrHshnJ2f6emiyJ771gipCsYSKVBXfdCIUmhkNZKudnEo9YfwLs+yLrVPQRYUxa2LBeO+ceVTAFaIBP8v+d4Rg4HnRLJ+17jwxyoOvIIF0="
         skip_existing: true
         on:
           tags: true
 cache: pip
-before_install:
-  - echo $TRAVIS_PYTHON_VERSION
+#before_install:
+#  - echo $TRAVIS_PYTHON_VERSION
 install:
   - pip install -U coverage setuptools pyinstaller mypy
   - pip install -r requirements.txt
