@@ -11,7 +11,7 @@ REQUIREMENTS = [
     'packaging',
 ]
 
-long_description = 'Please see https://github.com/manga-py/manga-py'
+long_description = 'Please see %s' % (__download_uri__ or 'https://github.com/manga-py/manga-py')
 
 
 release_status = 'Development Status :: 5 - Production/Stable'
@@ -50,6 +50,7 @@ setup(
     entry_points={
         'console_scripts': [
             'manga-py.img2pdf = manga_py.img2pdf:main',
+            'manga_py.img2pdf = manga_py.img2pdf:main',
         ]
     }
 )
