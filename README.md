@@ -2,7 +2,7 @@
 
 Manga-py utilite for converting chapters archives to pdf files
 
-[![build status](https://api.travis-ci.com/manga-py/img2pdf.svg?branch=2.0.2)](https://travis-ci.com/manga-py/img2pdf/branches)
+[![build status](https://api.travis-ci.com/manga-py/img2pdf.svg?branch=2.0.4)](https://travis-ci.com/manga-py/img2pdf/branches)
 
 
 ### Installation:
@@ -26,4 +26,10 @@ manga-py.img2pdf -h # help
 
 manga-py.img2pdf Manga/AwesomeManga
 
+
+# or as module (identical)
+
+python -m manga_py.img2pdf -h
+
+python -m manga_py.img2pdf Manga/AwesomeManga
 ```
