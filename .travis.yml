@@ -13,9 +13,17 @@ jobs:
     python: '3.7'
   - stage: test
     python: '3.8'
-#  - stage: release
-#    python: '3.7'
-#    script: skip
+  - stage: release
+    python: '3.7'
+    script: skip
+    deploy:
+      provider: pypi
+      user: __token__
+      password:
+        secure: moVUFIcfmRTthk5ItNw1DC+1hwUbv7aN8AQWyfPo3hUk5llna9H8A5faWRRSmsb1YZmyo2YT7Cfp+ks59eeuV+zsgvwKRuA8KlTAoxBufQcyTWVq6U22Hsmvjuw9bCqwY9aY6fsMkwlf5FZCZGskzYH+8u8VIOYExrHFkkAtcv7cFVjBHmzFCImi0SHF8BRwV3LBFvIQPeDHuG82UL2+q4FdvFUiYb5EVlWGBPBP5oUrCykTRxqCaPfojyl2EXWE5/hpof3hNXNW5evAkYo9imGi8tPfXUxkAY1h0DFtdIZESnm0CCbsvH3AT7kLldFyFd0Ws5i+vxl7ECHn6xm1RIqfTFedde5WkAz67xNL/hE/6cAvmFITxGJhECLUPRJUv9XR20WRr4w1EXRrAEemzZaJRmUqmfsfNJ4UGXa40SlzkpBTFDusytKp4PZW0HMzyBsBDtAiL6L40+dR3LeOVV2Mkbj7KRpYgXeHZS39mmVWY7DBnT3FWlBw1RQpC6p7Po/xuKVwek/Zoqj+X9fQGOJ/hqUVbXLGEHWpUvIGrQ/SpjvXUSMK1Ix0snCDU39GdA0qs9+lkZ0Am1jfy0SY1cwR1I//XwPr3DapYcaRRTAvjudgVjHMxkhORsPzNSI1blRnDa7HuSShO/Ajd5pGdW272C9fS5llkr9U0x3CuNI=
+      skip_existing: true
+      on:
+        tags: true
 cache: pip
 install:
 - pip install -U coverage setuptools pyinstaller mypy
@@ -25,14 +33,5 @@ script:
 - coverage run run_tests.py
 stages:
 - name: test
-#- name: release
-#  if: tag IS present
-deploy:
-  provider: pypi
-  user: __token__
-  password:
-    secure: At+XRWh1dVNHp6dumDghl/ky3efE1iUwRHlkM2SqfoicQFGtWmpLTiQPk2DAgwU/0IjXkiMNZuwZiaSgVUJHxvHTQ8Om1MGekAXZkRtVx38GcBDiPeK0YE4UOdrxntIPdfKhxnEPhWN/C9ZOWcc+d+5rjlJFjugfZMVGdO4qpY4uXlrjBSGU4GbgvVjUG/KPzsSih91t5kP8Oq2xyglZTGTVvHgVsdElsimrcKv5s90oz/T42LbOuqLn4Jv1L3JPoxQhr/6ryq8kVtmpOQl5mub+cY54Q4xBycHVsZVtHH6wmTgdqZ13/Kxq8BgXoJYB+qC3inzpacI4I0/CLqBqHLsTuOlQIVvAtMF9hb4SLeoAZwvKmh/f5w4tfmK8PBac3hKa9MMHaGaHRL3S1UX9rjtq9YffLh+1AbYKCl1wh/V0DPJCZw0RI/MXp1SwSWctjNJO8OCq/hyjH4z8P5zegGeY75PJ1jTLzbZwwUBwaDs8wm/DB9iQIXjMCtuY5nn/FtxmrkDuuhd24HGHWjpPecHIvlDApNewNqqnpiu5hMb6nuKSNCWiEAzZKVHPUsPSb5u1F4Y2okyicLgL/dlx9/xDjeVCvoKwVS3VZLhm7KrXAqMxU4YWhdaaVOCbNW/8EwQ+bjADH1xUh44yUU8HMg4prc2umPsowEyQCIZ4RNQ=
-  skip_existing: true
-  on:
-    tags: true
-    condition: $TRAVIS_PYTHON_VERSION == "3.7"
+- name: release
+  if: tag IS present
