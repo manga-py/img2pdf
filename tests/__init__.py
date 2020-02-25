@@ -27,12 +27,12 @@ class TestCreatePdf(unittest.TestCase):
             'archives_extension': 'zip',
             'output_directory': 'tests/output',
         }
-
-    @classmethod
-    def tearDownClass(cls):
         cls._output = cls.kwargs.get('output_directory', 'output')
         cls._pdf_one = Path(cls._output).joinpath('test_directory.pdf')
         cls._pdf_two = Path(cls._output).joinpath('test_archive.pdf')
+
+    @classmethod
+    def tearDownClass(cls):
         cls._pdf_one.is_file() and cls._pdf_one.unlink()
         cls._pdf_two.is_file() and cls._pdf_two.unlink()
         "Hook method for deconstructing the class fixture after running all tests in the class."
@@ -51,7 +51,7 @@ class TestCreatePdf(unittest.TestCase):
 
         img2pdf.main()
 
-        self.assertGreater(pdf_one.stat().st_size, 1024)
-        self.assertGreater(pdf_two.stat().st_size, 1024)
+        self.assertGreater(self._pdf_one.stat().st_size, 1024)
+        self.assertGreater(self._pdf_two.stat().st_size, 1024)
 
-        self.assertAlmostEqual(pdf_one.stat().st_size, pdf_two.stat().st_size, delta=10)
+        self.assertAlmostEqual(self._pdf_one.stat().st_size, self._pdf_two.stat().st_size, delta=10)
