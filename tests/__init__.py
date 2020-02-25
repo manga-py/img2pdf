@@ -35,7 +35,6 @@ class TestCreatePdf(unittest.TestCase):
     def tearDownClass(cls):
         cls._pdf_one.is_file() and cls._pdf_one.unlink()
         cls._pdf_two.is_file() and cls._pdf_two.unlink()
-        "Hook method for deconstructing the class fixture after running all tests in the class."
 
     def img2pdf_arguments(self) -> Namespace:
         return Namespace(
