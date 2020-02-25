@@ -1,3 +1,5 @@
+from typing import List
+
 try:
     from .image2pdf import main
 except ImportError:
@@ -6,4 +8,4 @@ except ImportError:
     def main():
         error('Package requirements not installed')
 
-__all__ = ['main']
+__all__: List[str] = ['main']

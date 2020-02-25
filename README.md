@@ -11,7 +11,7 @@ Manga-py utilite for converting chapters archives to pdf files
 
 ```bash
 
-pip install manga-py.img2pdf
+pip install manga-py.img2pdf -U
 
 ```
 
