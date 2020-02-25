@@ -7,7 +7,7 @@ import unittest
 from argparse import Namespace
 from pathlib import Path
 
-from manga_py import img2pdf
+from manga_py.img2pdf import image2pdf
 
 
 class TestCreatePdf(unittest.TestCase):
@@ -43,12 +43,12 @@ class TestCreatePdf(unittest.TestCase):
 
     def prepare(self, **kwargs):
         self.kwargs.update(kwargs)
-        img2pdf.arguments = self.img2pdf_arguments
+        image2pdf.arguments = self.img2pdf_arguments
 
     def test_make_pdf(self):
         self.prepare()
 
-        img2pdf.main()
+        image2pdf.main()
 
         self.assertGreater(self._pdf_one.stat().st_size, 1024)
         self.assertGreater(self._pdf_two.stat().st_size, 1024)
