@@ -1,11 +1,15 @@
-from argparse import ArgumentParser, Namespace
-from pathlib import Path
-from logging import warning, error
-from zipfile import ZipFile
-from PIL import Image
-from tempfile import gettempdir
-from typing import Tuple, List
-from shutil import rmtree
+try:
+    from argparse import ArgumentParser, Namespace
+    from pathlib import Path
+    from logging import warning, error
+    from zipfile import ZipFile
+    from PIL import Image
+    from tempfile import gettempdir
+    from typing import Tuple, List
+    from shutil import rmtree
+except ImportError:
+    from sys import stderr
+    print('Installation in progress?', file=stderr)
 
 
 _allowed_file_extensions = [
