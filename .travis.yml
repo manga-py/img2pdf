@@ -3,38 +3,36 @@ dist: xenial
 addons:
   apt:
     packages:
-      - python-setuptools
-      - libwebp-dev
+    - python-setuptools
+    - libwebp-dev
 jobs:
   include:
-    - stage: test
-      python: "3.6"
-    - stage: test
-      python: "3.7"
-    - stage: test
-      python: "3.8"
-    - stage: release
-      python: "3.7"
-      script: skip
-      deploy:
-        server: https://pypi.org/
-        provider: pypi
-        user: __token__
-        password: $PYPI_PASS
-        skip_existing: true
-        on:
-          tags: true
+  - stage: test
+    python: '3.6'
+  - stage: test
+    python: '3.7'
+  - stage: test
+    python: '3.8'
+#  - stage: release
+#    python: '3.7'
+#    script: skip
 cache: pip
-#before_install:
-#  - echo $TRAVIS_PYTHON_VERSION
 install:
-  - pip install -U coverage setuptools pyinstaller mypy
-  - pip install -r requirements.txt
+- pip install -U coverage setuptools pyinstaller mypy
+- pip install -r requirements.txt
 script:
-  - mypy manga_py  # check syntax
-  - coverage run run_tests.py
+- mypy manga_py
+- coverage run run_tests.py
 stages:
-  - name: test
-  - name: release
-    if: tag IS present
-#    if: branch = master and tag IS present
+- name: test
+#- name: release
+#  if: tag IS present
+deploy:
+  provider: pypi
+  user: __token__
+  password:
+    secure: At+XRWh1dVNHp6dumDghl/ky3efE1iUwRHlkM2SqfoicQFGtWmpLTiQPk2DAgwU/0IjXkiMNZuwZiaSgVUJHxvHTQ8Om1MGekAXZkRtVx38GcBDiPeK0YE4UOdrxntIPdfKhxnEPhWN/C9ZOWcc+d+5rjlJFjugfZMVGdO4qpY4uXlrjBSGU4GbgvVjUG/KPzsSih91t5kP8Oq2xyglZTGTVvHgVsdElsimrcKv5s90oz/T42LbOuqLn4Jv1L3JPoxQhr/6ryq8kVtmpOQl5mub+cY54Q4xBycHVsZVtHH6wmTgdqZ13/Kxq8BgXoJYB+qC3inzpacI4I0/CLqBqHLsTuOlQIVvAtMF9hb4SLeoAZwvKmh/f5w4tfmK8PBac3hKa9MMHaGaHRL3S1UX9rjtq9YffLh+1AbYKCl1wh/V0DPJCZw0RI/MXp1SwSWctjNJO8OCq/hyjH4z8P5zegGeY75PJ1jTLzbZwwUBwaDs8wm/DB9iQIXjMCtuY5nn/FtxmrkDuuhd24HGHWjpPecHIvlDApNewNqqnpiu5hMb6nuKSNCWiEAzZKVHPUsPSb5u1F4Y2okyicLgL/dlx9/xDjeVCvoKwVS3VZLhm7KrXAqMxU4YWhdaaVOCbNW/8EwQ+bjADH1xUh44yUU8HMg4prc2umPsowEyQCIZ4RNQ=
+  skip_existing: true
+  on:
+    tags: true
+    condition: $TRAVIS_PYTHON_VERSION == "3.7"
